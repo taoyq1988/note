@@ -1,19 +1,19 @@
 package _1_nextPermutation
 
 func nextPermutation(nums []int) {
-	i := len(nums)-1
-	for ; i>=1 ; i-- {
+	i := len(nums) - 1
+	for ; i >= 1; i-- {
 		if nums[i] > nums[i-1] {
 			break
 		}
 	}
 	i--
-	j := i+1
+	j := i + 1
 	if i == -1 {
 		QuickSort(nums)
 		return
 	}
-	for ; j<len(nums); j++ {
+	for ; j < len(nums); j++ {
 		if nums[j] <= nums[i] {
 			break
 		}

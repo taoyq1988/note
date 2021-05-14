@@ -6,7 +6,7 @@ import (
 
 // value -1 means default value
 type BST struct {
-	Left *BST
+	Left  *BST
 	Right *BST
 	Value int
 }
@@ -23,7 +23,7 @@ func NewBST() *BST {
 // 3. 如果节点 c 的值与节点 n 的值相等，则说明用户在试图插入一个重复的节点。解决办法可以是直接丢弃节点 n，或者可以抛出异常。
 // 4. 如果节点 n 的值小于节点 c 的值，则说明节点 n 一定是在节点 c 的左子树中。则将父节点设置为节点 c，并将节点 c 设置为节点 c 的左孩子，然后返回至第 1 步。
 // 5. 如果节点 n 的值大于节点 c 的值，则说明节点 n 一定是在节点 c 的右子树中。则将父节点设置为节点 c，并将节点 c 设置为节点 c 的右孩子，然后返回至第 1 步。
-func(root *BST) insert(value int) error {
+func (root *BST) insert(value int) error {
 	if value < 0 {
 		return errors.New("illegle value")
 	}

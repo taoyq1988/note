@@ -7,11 +7,11 @@ package _45_binaryTreeTail
 *     Left *TreeNode
 *     Right *TreeNode
 * }
-*/
+ */
 
 type TreeNode struct {
-	Val int
-	Left *TreeNode
+	Val   int
+	Left  *TreeNode
 	Right *TreeNode
 }
 
@@ -32,7 +32,7 @@ func postorderTraversal(root *TreeNode) []int {
 		}
 	}
 	lenR := len(result)
-	for i, j := 0, lenR-1 ; i<j ; i,j = i+1, j-1 {
+	for i, j := 0, lenR-1; i < j; i, j = i+1, j-1 {
 		result[i], result[j] = result[j], result[i]
 	}
 	return result
@@ -40,7 +40,7 @@ func postorderTraversal(root *TreeNode) []int {
 
 /**
 Stack struct
- */
+*/
 type Stack struct {
 	data  []*TreeNode
 	index int

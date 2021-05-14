@@ -3,7 +3,7 @@ package _2_trap
 func trap(height []int) int {
 	upStack := make([]int, 0)
 	result := 0
-	for i:=0; i< len(height);i++ {
+	for i := 0; i < len(height); i++ {
 		if i == 0 {
 			goto hok
 		}
@@ -22,7 +22,7 @@ func trap(height []int) int {
 			}
 		}
 	hok:
-		if i == len(height) - 1 {
+		if i == len(height)-1 {
 			break
 		}
 		if height[i] > height[i+1] {
@@ -34,7 +34,7 @@ func trap(height []int) int {
 
 func calculate(height []int, s, e int) int {
 	max := -1
-	for i:=s+1;i<e;i++ {
+	for i := s + 1; i < e; i++ {
 		if height[i] > max {
 			max = height[i]
 		}

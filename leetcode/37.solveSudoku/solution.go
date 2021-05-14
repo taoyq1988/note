@@ -8,11 +8,11 @@ import (
 var p = byte('.')
 
 // 原题描述太智障，没有说明输入是字符串数字，函数类型却用byte来描述，导致误以为数字就用byte表示，在结果输出上会不过
-func solveSudoku(board [][]byte)  {
+func solveSudoku(board [][]byte) {
 	rowMap := make(map[int]map[int]bool)
 	colMap := make(map[int]map[int]bool)
 	cellMap := make(map[int]map[int]bool)
-	for i:=0;i<9;i++ {
+	for i := 0; i < 9; i++ {
 		rowMap[i] = make(map[int]bool)
 		colMap[i] = make(map[int]bool)
 		cellMap[i] = make(map[int]bool)
@@ -23,7 +23,7 @@ func solveSudoku(board [][]byte)  {
 				n := int(c)
 				rowMap[i][n] = true
 				colMap[j][n] = true
-				cell := (i/3)+(j/3*3)
+				cell := (i / 3) + (j / 3 * 3)
 				cellMap[cell][n] = true
 			}
 		}
@@ -36,9 +36,9 @@ func solve(board [][]byte, r, c int, rowMap, colMap, cellMap map[int]map[int]boo
 		return true
 	}
 	if board[r][c] == p {
-		for i:=1;i<=9;i++ {
-			cell := (r/3)+(c/3*3)
-			if (!rowMap[r][i]) && (!colMap[c][i]) && (!cellMap[cell][i])  {
+		for i := 1; i <= 9; i++ {
+			cell := (r / 3) + (c / 3 * 3)
+			if (!rowMap[r][i]) && (!colMap[c][i]) && (!cellMap[cell][i]) {
 				board[r][c] = byte(i)
 				rowMap[r][i] = true
 				colMap[c][i] = true
@@ -78,16 +78,16 @@ func sudoPrint(board [][]byte) {
 			} else {
 				r += strconv.FormatInt(int64(col), 10)
 			}
-			if (j+1)%3==0 && j != 8 {
+			if (j+1)%3 == 0 && j != 8 {
 				r += "|"
 			}
-			if j < len(row) - 1 {
+			if j < len(row)-1 {
 				r += " "
 			}
 		}
 		r += "|"
 		result += r + "\n"
-		if (i+1)%3==0 && i != 8 {
+		if (i+1)%3 == 0 && i != 8 {
 			result += "---------------------\n"
 		}
 	}

@@ -6,30 +6,28 @@ import (
 )
 
 type Node struct {
-	key int
+	key   int
 	value int
 	seqNo int
-	prev *Node
-	next *Node
-	tail *Node
+	prev  *Node
+	next  *Node
+	tail  *Node
 }
 
 type LFUCache struct {
 	capacity int
-	data map[int]*Node
-	minSeq int
-	seqMap map[int]*Node
+	data     map[int]*Node
+	minSeq   int
+	seqMap   map[int]*Node
 }
-
 
 func Constructor(capacity int) LFUCache {
-	return LFUCache {
-		capacity : capacity,
-		data : make(map[int]*Node),
-		seqMap : make(map[int]*Node),
+	return LFUCache{
+		capacity: capacity,
+		data:     make(map[int]*Node),
+		seqMap:   make(map[int]*Node),
 	}
 }
-
 
 func (this *LFUCache) Get(key int) int {
 	if node, ok := this.data[key]; ok {
@@ -75,8 +73,7 @@ func (this *LFUCache) Get(key int) int {
 	return -1
 }
 
-
-func (this *LFUCache) Put(key int, value int)  {
+func (this *LFUCache) Put(key int, value int) {
 	if this.capacity == 0 {
 		return
 	}
@@ -124,9 +121,9 @@ func (this *LFUCache) Put(key int, value int)  {
 	}
 	// if not exist, create a new node
 	node := &Node{
-		key:key,
-		value:value,
-		seqNo:1,
+		key:   key,
+		value: value,
+		seqNo: 1,
 	}
 	if this.capacity == len(this.data) {
 		minSeq := this.minSeq
@@ -204,7 +201,6 @@ func sortMapKey(m map[int]*Node) []int {
 	sort.Sort(keys)
 	return keys
 }
-
 
 /**
  * Your LFUCache object will be instantiated and called as such:

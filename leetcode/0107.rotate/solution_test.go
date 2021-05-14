@@ -14,10 +14,10 @@ func TestRotate(t *testing.T) {
 	//print(matrix)
 
 	matrix1 := [][]int{
-		{5, 1, 9,11},
-		{2, 4, 8,10},
+		{5, 1, 9, 11},
+		{2, 4, 8, 10},
 		{13, 3, 6, 7},
-		{15,14,12,16},
+		{15, 14, 12, 16},
 	}
 	print(matrix1)
 	rotate(matrix1)
