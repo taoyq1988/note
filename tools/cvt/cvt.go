@@ -6,15 +6,24 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
+)
+
+const (
+	SecondTsLen = 10
+	MilliTsLen  = 13
+	MicroTsLen  = 16
+	NanoTsLen   = 19
 )
 
 type CVTOption struct {
-	HelpFlag bool
-	D2B      string
-	D2H      string
-	H2B      string
-	H2D      string
-	H2S      string
+	HelpFlag  bool
+	D2B       string
+	D2H       string
+	H2B       string
+	H2D       string
+	H2S       string
+	TimeStamp string
 }
 
 func parse() (*CVTOption, []string) {
@@ -25,6 +34,7 @@ func parse() (*CVTOption, []string) {
 	flag.StringVar(&options.H2B, "h2b", "", "Hex number to Binary number.")
 	flag.StringVar(&options.H2D, "h2d", "", "Hex number to Decimal number.")
 	flag.StringVar(&options.H2S, "h2s", "", "decode Hex string to utf8 string.")
+	flag.StringVar(&options.TimeStamp, "ts", "", "convert timestamp to date time. (e.g. 1612345678)")
 
 	flag.Parse()
 	return options, flag.Args()
@@ -49,6 +59,30 @@ func main() {
 			return
 		}
 		fmt.Println(string(r))
+	case options.TimeStamp != "":
+		tss := options.TimeStamp
+		ts, err := strconv.ParseInt(tss, 10, 64)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		switch len(tss) {
+		case SecondTsLen:
+		case MilliTsLen:
+			ts = ts / 1000
+		case MicroTsLen:
+			ts = ts / 1000000
+		case NanoTsLen:
+			ts = ts / 1000000000
+		default:
+			fmt.Println("invalid timestamp")
+			return
+		}
+		timeNow := time.Now().Second()
+		fmt.Printf("current timestamp secondes: %d\n", timeNow)
+		fmt.Printf("current timestamp mill-seconeds: %d\n", timeNow*1000)
+		t := time.Unix(ts, 0).Format("2006-01-02 15:04:05")
+		fmt.Println(t)
 	case options.HelpFlag:
 		fallthrough
 	default:
