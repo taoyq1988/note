@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/md5"
 	"encoding/hex"
 	"flag"
 	"fmt"
@@ -24,6 +25,7 @@ type CVTOption struct {
 	H2D       string
 	H2S       string
 	TimeStamp string
+	MD5       string
 }
 
 func parse() (*CVTOption, []string) {
@@ -35,6 +37,7 @@ func parse() (*CVTOption, []string) {
 	flag.StringVar(&options.H2D, "h2d", "", "Hex number to Decimal number.")
 	flag.StringVar(&options.H2S, "h2s", "", "decode Hex string to utf8 string.")
 	flag.StringVar(&options.TimeStamp, "ts", "", "convert timestamp to date time. (e.g. 1612345678)")
+	flag.StringVar(&options.MD5, "md5", "", "md5 hash(16bytes). (e.g. 123456)")
 
 	flag.Parse()
 	return options, flag.Args()
@@ -83,6 +86,11 @@ func main() {
 		fmt.Printf("current timestamp mill-seconeds: %d\n", timeNow*1000)
 		t := time.Unix(ts, 0).Format("2006-01-02 15:04:05")
 		fmt.Println(t)
+	case options.MD5 != "":
+		s := options.MD5
+		bs := md5.Sum([]byte(s))
+		fmt.Println(hex.EncodeToString(bs[:]))
+		fmt.Println(strings.ToUpper(hex.EncodeToString(bs[:])))
 	case options.HelpFlag:
 		fallthrough
 	default:
