@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"flag"
 	"fmt"
+	"math/big"
 	"strconv"
 	"strings"
 	"time"
@@ -64,6 +65,13 @@ func main() {
 		fmt.Println(string(r))
 	case options.TimeStamp != "":
 		tss := options.TimeStamp
+		if tss == "0" {
+			nowTs := time.Now().UnixNano()
+			nowTsHex := strconv.FormatInt(nowTs, 16)
+			fmt.Println("now ts: ", nowTs)
+			fmt.Println("now ts hex: ", nowTsHex)
+			return
+		}
 		ts, err := strconv.ParseInt(tss, 10, 64)
 		if err != nil {
 			fmt.Println(err.Error())
@@ -102,11 +110,12 @@ func convertHexNum(origin string, base, targetBase int) {
 	if strings.HasPrefix(origin, "0x") {
 		origin = origin[2:]
 	}
-	i, err := strconv.ParseInt(origin, base, 64)
-	if err != nil {
-		fmt.Printf("parse number '%s' error for %s\n", origin, err.Error())
+	num := new(big.Int)
+	num, ok := num.SetString(origin, base)
+	if !ok {
+		fmt.Printf("parse number '%s' error\n", origin)
 	} else {
-		r := strconv.FormatInt(i, targetBase)
+		r := num.Text(targetBase)
 		fmt.Println(r)
 	}
 }
