@@ -68,11 +68,13 @@ func main() {
 		if tss == "0" {
 			now := time.Now()
 			nowUnix := now.Unix()
+			nowUnixHex := strconv.FormatInt(nowUnix, 16)
 			nowTs := now.UnixNano()
 			nowTsHex := strconv.FormatInt(nowTs, 16)
 			fmt.Println("now ts: ", nowTs)
 			fmt.Println("now ts hex: ", nowTsHex)
 			fmt.Println("now unix: ", nowUnix)
+			fmt.Println("now unix hex: ", nowUnixHex)
 			return
 		}
 		ts, err := strconv.ParseInt(tss, 10, 64)
