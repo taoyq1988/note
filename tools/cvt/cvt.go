@@ -66,10 +66,13 @@ func main() {
 	case options.TimeStamp != "":
 		tss := options.TimeStamp
 		if tss == "0" {
-			nowTs := time.Now().UnixNano()
+			now := time.Now()
+			nowUnix := now.Unix()
+			nowTs := now.UnixNano()
 			nowTsHex := strconv.FormatInt(nowTs, 16)
 			fmt.Println("now ts: ", nowTs)
 			fmt.Println("now ts hex: ", nowTsHex)
+			fmt.Println("now unix: ", nowUnix)
 			return
 		}
 		ts, err := strconv.ParseInt(tss, 10, 64)
